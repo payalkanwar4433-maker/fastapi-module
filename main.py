@@ -4,6 +4,20 @@ from pydantic import BaseModel
 app = FastAPI()
 
 class User(BaseModel):
+    name: str
+    age: int
+    email: str
+
+@app.post("/users")
+def create_user(user: User):
+    return user
+from fastapi import FastAPI
+app=FastAPI()
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class User(BaseModel):
     Name: str
     age: int
 
@@ -11,6 +25,9 @@ class User(BaseModel):
 def home():
     return{"message":"Hello fastapi"}
 
+@app.get("/about")
+def about():
+    return{"message":"Hello from about page"}
 #Optional parameter
 @app.get("/user/{user_id}")
 def about(user_id:int):
@@ -18,6 +35,7 @@ def about(user_id:int):
 
 
 @app.get("/users")
+
 def users(name:str=None):
     return{
         "Name":name
@@ -147,6 +165,7 @@ class UserResponse(BaseModel):
 @app.get("/user",response_model=UserResponse)
 def get_user():
     return{
+        "name":["payal","anjali"],
         "name":"Mohit",
         "age":24,
         "password":"123456"
